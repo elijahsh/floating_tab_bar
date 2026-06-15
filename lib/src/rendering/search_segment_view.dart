@@ -224,24 +224,27 @@ class _SearchRow extends StatelessWidget {
           child: controller == null
               ? Text(
                   segment.hint,
-                  style: theme.searchHintStyle,
+                  style: theme.searchInputDecorationTheme.hintStyle,
                   overflow: TextOverflow.ellipsis,
                 )
-              : TextField(
-                  controller: controller.searchTextController,
-                  focusNode: focusNode,
-                  style: theme.searchTextStyle,
-                  textAlignVertical: TextAlignVertical.center,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    isDense: true,
-                    contentPadding: EdgeInsets.zero,
-                    hintText: segment.hint,
-                    hintStyle: theme.searchHintStyle,
+              : Theme(
+                  data: Theme.of(context).copyWith(
+                    inputDecorationTheme: theme.searchInputDecorationTheme,
                   ),
-                  onSubmitted: (_) {
-                    controller.searchState = FloatingSearchState.expanded;
-                  },
+                  child: TextField(
+                    controller: controller.searchTextController,
+                    focusNode: focusNode,
+                    textAlignVertical: TextAlignVertical.center,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      isDense: true,
+                      contentPadding: EdgeInsets.zero,
+                      hintText: segment.hint,
+                    ),
+                    onSubmitted: (_) {
+                      controller.searchState = FloatingSearchState.expanded;
+                    },
+                  ),
                 ),
         ),
         if (segment.showMic)

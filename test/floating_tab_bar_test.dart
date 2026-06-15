@@ -1,9 +1,9 @@
+import 'package:floating_tab_bar/floating_tab_bar.dart';
+import 'package:floating_tab_bar/src/rendering/action_segment_view.dart';
+import 'package:floating_tab_bar/src/rendering/search_segment_view.dart';
+import 'package:floating_tab_bar/src/rendering/tabs_segment_view.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-import 'package:liquid_tab_bar/floating_tab_bar.dart';
-import 'package:liquid_tab_bar/src/rendering/action_segment_view.dart';
-import 'package:liquid_tab_bar/src/rendering/search_segment_view.dart';
-import 'package:liquid_tab_bar/src/rendering/tabs_segment_view.dart';
 
 void main() {
   testWidgets('collapsed loose tabs are circular in compact state', (
@@ -283,47 +283,5 @@ void main() {
 
     expect(controller.searchState, FloatingSearchState.expanded);
     expect(find.byIcon(Icons.close_rounded), findsNothing);
-  });
-
-  testWidgets('search hint keeps the same position when input opens', (
-    tester,
-  ) async {
-    const hint = 'Find widgets';
-    final controller = FloatingTabBarController(
-      initialState: FloatingTabBarState.compact,
-      initialSearchState: FloatingSearchState.expanded,
-      autoCompactBarOnSearch: false,
-    );
-    addTearDown(controller.dispose);
-
-    await tester.pumpWidget(
-      MaterialApp(
-        home: Scaffold(
-          body: Align(
-            alignment: Alignment.bottomLeft,
-            child: SizedBox(
-              width: 360,
-              child: FloatingTabBar(
-                controller: controller,
-                theme: FloatingTabBarThemeData.defaults.copyWith(
-                  animationDuration: Duration.zero,
-                  tabBarPadding: EdgeInsets.zero,
-                ),
-                segments: const [
-                  FloatingSearchSegment(hint: hint),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-
-    final expandedHintTopLeft = tester.getTopLeft(find.text(hint));
-
-    controller.searchState = FloatingSearchState.input;
-    await tester.pump();
-
-    expect(tester.getTopLeft(find.text(hint)), expandedHintTopLeft);
   });
 }

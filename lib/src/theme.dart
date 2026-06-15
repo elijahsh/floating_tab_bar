@@ -44,14 +44,12 @@ class FloatingTabBarThemeData extends ThemeExtension<FloatingTabBarThemeData> {
       size: 20,
       color: Color(0xFF666666),
     ),
-    this.searchTextStyle = const TextStyle(
-      fontSize: 15,
-      color: Color(0xFF000000),
-    ),
-    this.searchHintStyle = const TextStyle(
-      fontSize: 15,
-      color: Color(0xFF888888),
-      fontWeight: FontWeight.w400,
+    this.searchInputDecorationTheme = const InputDecorationTheme(
+      hintStyle: TextStyle(
+        fontSize: 15,
+        color: Color(0xFF888888),
+        fontWeight: FontWeight.w400,
+      ),
     ),
     this.animationDuration = const Duration(milliseconds: 380),
     this.animationCurve = Curves.easeInOutCubic,
@@ -73,8 +71,7 @@ class FloatingTabBarThemeData extends ThemeExtension<FloatingTabBarThemeData> {
   final TextStyle tabLabelStyle;
   final TextStyle tabActiveLabelStyle;
   final IconThemeData searchIconTheme;
-  final TextStyle searchTextStyle;
-  final TextStyle searchHintStyle;
+  final InputDecorationTheme searchInputDecorationTheme;
   final Duration animationDuration;
   final Curve animationCurve;
 
@@ -101,8 +98,7 @@ class FloatingTabBarThemeData extends ThemeExtension<FloatingTabBarThemeData> {
     TextStyle? tabLabelStyle,
     TextStyle? tabActiveLabelStyle,
     IconThemeData? searchIconTheme,
-    TextStyle? searchTextStyle,
-    TextStyle? searchHintStyle,
+    InputDecorationTheme? searchInputDecorationTheme,
     Duration? animationDuration,
     Curve? animationCurve,
   }) {
@@ -123,8 +119,8 @@ class FloatingTabBarThemeData extends ThemeExtension<FloatingTabBarThemeData> {
       tabLabelStyle: tabLabelStyle ?? this.tabLabelStyle,
       tabActiveLabelStyle: tabActiveLabelStyle ?? this.tabActiveLabelStyle,
       searchIconTheme: searchIconTheme ?? this.searchIconTheme,
-      searchTextStyle: searchTextStyle ?? this.searchTextStyle,
-      searchHintStyle: searchHintStyle ?? this.searchHintStyle,
+      searchInputDecorationTheme:
+          searchInputDecorationTheme ?? this.searchInputDecorationTheme,
       animationDuration: animationDuration ?? this.animationDuration,
       animationCurve: animationCurve ?? this.animationCurve,
     );
@@ -172,16 +168,9 @@ class FloatingTabBarThemeData extends ThemeExtension<FloatingTabBarThemeData> {
         t,
       )!,
       searchIconTheme: t < 0.5 ? searchIconTheme : other.searchIconTheme,
-      searchTextStyle: TextStyle.lerp(
-        searchTextStyle,
-        other.searchTextStyle,
-        t,
-      )!,
-      searchHintStyle: TextStyle.lerp(
-        searchHintStyle,
-        other.searchHintStyle,
-        t,
-      )!,
+      searchInputDecorationTheme: t < 0.5
+          ? searchInputDecorationTheme
+          : other.searchInputDecorationTheme,
       animationDuration: t < 0.5 ? animationDuration : other.animationDuration,
       animationCurve: t < 0.5 ? animationCurve : other.animationCurve,
     );
